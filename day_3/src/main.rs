@@ -9,7 +9,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut psum_2 = 0;
 
     let get_priority = |acc: i32, c: &char| {
-        let mut priority = c.to_ascii_lowercase() as u8 - 'a' as u8 + 1;
+        let mut priority = c.to_ascii_lowercase() as u8 - b'a' + 1;
         if c.is_ascii_uppercase() {
             priority += 26;
         }

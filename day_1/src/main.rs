@@ -7,7 +7,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut elves = Vec::new();
 
     for line in input.lines() {
-        if line.len() < 1 {
+        if line.is_empty() {
             elves.push(calorie_count);
             calorie_count = 0;
         } else {

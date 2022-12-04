@@ -9,7 +9,7 @@ struct Range {
 
 impl Range {
     fn from(s: &str) -> Self {
-        let mut parser = s.split("-");
+        let mut parser = s.split('-');
         let low = parser.next().unwrap().parse::<i32>().unwrap();
         let high = parser.next().unwrap().parse::<i32>().unwrap();
 
@@ -29,7 +29,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let answer_1 = input
         .lines()
-        .map(|line| line.split(",").collect::<Vec<&str>>())
+        .map(|line| line.split(',').collect::<Vec<&str>>())
         .filter(|parsed| {          
             let r1 = Range::from(parsed[0]);
             let r2 = Range::from(parsed[1]);
@@ -42,7 +42,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let answer_2 = input
         .lines()
-        .map(|line| line.split(",").collect::<Vec<&str>>())
+        .map(|line| line.split(',').collect::<Vec<&str>>())
         .filter(|parsed| {          
             let r1 = Range::from(parsed[0]);
             let r2 = Range::from(parsed[1]);
