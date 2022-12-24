@@ -1,11 +1,11 @@
-use std::collections::HashMap;
+
 use std::error::Error;
 use std::fs;
 use pathfinding::prelude::dijkstra;
 
+type Node = (usize, usize, char);
 
-
-fn parse(input: &str) -> Vec<(usize, usize, char)> {
+fn parse(input: &str) -> Vec<Node> {
     let mut nodes = Vec::new();
     let lines = input.lines()
         .map(|l| l.trim())
@@ -20,7 +20,7 @@ fn parse(input: &str) -> Vec<(usize, usize, char)> {
     nodes
 }
 
-fn get_dijkstra(nodes: &Vec<(usize, usize, char)>, start_node: &(usize, usize, char), end_node: &(usize, usize, char)) -> Option<(Vec<(usize, usize, char)>, usize)> {
+fn get_dijkstra(nodes: &[Node], start_node: &Node, end_node: &Node) -> Option<(Vec<Node>, usize)> {
     dijkstra(
         start_node,
         |&(r, c, v)| {
@@ -35,8 +35,8 @@ fn get_dijkstra(nodes: &Vec<(usize, usize, char)>, start_node: &(usize, usize, c
                     if *n_v == 'E' {
                         n_elevation = 'z' as i32
                     }
-                    let result = elevation >= n_elevation || n_elevation - elevation == 1;
-                    result
+                    
+                    elevation >= n_elevation || n_elevation - elevation == 1
                 })
                 .map(|&n| (n, 1))
         },
@@ -45,18 +45,17 @@ fn get_dijkstra(nodes: &Vec<(usize, usize, char)>, start_node: &(usize, usize, c
 
 fn get_answers(input: String) -> (usize, usize) {
     let mut nodes = parse(input.as_str());
-    let mut shortest_path = usize::MAX;
     let mut start_node = nodes.iter_mut().find(|n| n.2 == 'S').unwrap();
     start_node.2 = 'a';
     let start_node = *start_node;
     let end_node = nodes.iter().find(|n| n.2 == 'E').unwrap();
     
 
-    let path = get_dijkstra(&nodes, &start_node, &end_node).unwrap();
-    shortest_path = path.1;
+    let path = get_dijkstra(&nodes, &start_node, end_node).unwrap();
+    let mut shortest_path = path.1;
 
     for start_node in nodes.iter().filter(|n| n.2 == 'a') {
-        if let Some(path) = get_dijkstra(&nodes, &start_node, &end_node) {
+        if let Some(path) = get_dijkstra(&nodes, start_node, end_node) {
             shortest_path = usize::min(shortest_path, path.1);
         }
     }

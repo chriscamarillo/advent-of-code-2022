@@ -16,7 +16,7 @@ fn get_signal_strength(input: &str, poll: &mut [i32]) -> i32 {
         if line.is_empty() {
             continue;
         }
-        let tokens = line.split(" ").collect::<Vec<&str>>();
+        let tokens = line.split(' ').collect::<Vec<&str>>();
         match tokens[..] {
             ["noop"] => {
                 ops.push(0);

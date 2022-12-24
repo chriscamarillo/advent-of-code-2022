@@ -52,7 +52,7 @@ fn parse(input: &str) -> Vec<Monkey> {
             },
             ["Starting", "items:", items @ ..] => {
                 for i in items {
-                    let i = i.replace(",", "").trim().parse().unwrap();
+                    let i = i.replace(',', "").trim().parse().unwrap();
                     monkeys[monkey_ptr].items.push(i);
                 }
             },
@@ -112,13 +112,13 @@ fn stuff_slinging_simian_shenanigans(monkeys: &mut Vec<Monkey>, rounds: usize, r
     }
 }
 
-fn get_monkey_business_score(monkeys: &mut Vec<Monkey>) -> usize {
+fn get_monkey_business_score(monkeys: &mut [Monkey]) -> usize {
     let mut inspected = monkeys.iter().map(|m| m.n_inspected).collect::<Vec<usize>>();
     inspected.sort();
     inspected.reverse();
 
-    let monkey_business = inspected[0] * inspected[1];
-    monkey_business
+    
+    inspected[0] * inspected[1]
 }
 
 fn get_answers(input: String) -> (usize, usize) {

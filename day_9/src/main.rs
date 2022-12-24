@@ -72,7 +72,7 @@ fn run(input: String, rope: &mut [Knot]) -> usize {
             continue;
         }
 
-        let tokens = line.trim().split(" ").collect::<Vec<&str>>();
+        let tokens = line.trim().split(' ').collect::<Vec<&str>>();
 
         let (dir, count) = match tokens[..] {
             ["L", val] => {
@@ -96,7 +96,7 @@ fn run(input: String, rope: &mut [Knot]) -> usize {
 
         for _ in 0..count {
             move_head(rope, &dir);
-            seen.insert(rope.last().unwrap().clone());
+            seen.insert(*rope.last().unwrap());
         }
     }
     
@@ -118,7 +118,7 @@ fn get_answers(input: String) -> (usize, usize) {
     ];
 
     let answer_1 = run(input.clone(), &mut rope_1);
-    let answer_2 = run(input.clone(), &mut rope_2);
+    let answer_2 = run(input, &mut rope_2);
 
     (answer_1, answer_2)
 }

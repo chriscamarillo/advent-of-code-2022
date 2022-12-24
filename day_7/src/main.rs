@@ -5,7 +5,7 @@ use std::path::PathBuf;
 
 const DISK_SPACE: u32 = 70000000;
 
-fn cap_calculate(options: &mut Vec<u32>, cap: u32) -> u32 {
+fn cap_calculate(options: &mut [u32], cap: u32) -> u32 {
     options.sort();
     options.reverse();
     options.iter().fold(0, |acc, v| {
@@ -16,7 +16,7 @@ fn cap_calculate(options: &mut Vec<u32>, cap: u32) -> u32 {
     })
 }
 
-fn smallest_free(options: &mut Vec<u32>, space_needed: u32) -> u32 {
+fn smallest_free(options: &mut [u32], space_needed: u32) -> u32 {
     options.sort();
 
     let space_used = options.last().unwrap();
@@ -56,7 +56,7 @@ fn parse(input: &str) -> Vec<u32> {
         }
     }
     
-    dir_size_map.values().map(|x| *x).collect::<Vec<u32>>()
+    dir_size_map.values().copied().collect::<Vec<u32>>()
 }
 
 fn main() -> Result<(), Box<dyn Error>> {

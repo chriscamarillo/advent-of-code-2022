@@ -7,7 +7,7 @@ struct Tree {
     seen: bool,
 }
 
-fn scenic_score(forest: &Vec<Tree>, rows: usize, cols: usize, pick: usize) -> usize {
+fn scenic_score(forest: &[Tree], rows: usize, cols: usize, pick: usize) -> usize {
     let rc_to_i  = |r, c| { r * cols + c };
     let i_to_c  = |i| { (i / cols, i % cols) };
     let (p_r, p_c) = i_to_c(pick);    
